@@ -1,12 +1,26 @@
 # Root -------------------------------------------------------------
 tiny-yolov3/
 tiny-yolov3.pt
+runs/
 z
 
 
 # Backend ----------------------------------------------------------
+apis/live_api/env
+
 apis/video_api/env
 apis/video_api/uploads
+apis/video_api/processed_videos
+apis/video_api/predict
+
+
+# Model
+model/env
+model/output
+model/footages
+yolo11n.pt
+yolo12n.pt
+yolov8n.pt
 
 
 # Frontend ---------------------------------------------------------
