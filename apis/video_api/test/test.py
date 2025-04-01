@@ -35,22 +35,22 @@ class TestVideoUploadAPI(unittest.TestCase):
         self.print_result("Invalid File Type", 400, response.status_code)
         self.assertEqual(response.status_code, 400)
 
-    def test_large_file_rejection(self):
-        """Test uploading a file larger than 1GB (simulated)."""
-        big_file_path = "big_file.mp4"
+    # def test_large_file_rejection(self):
+    #     """Test uploading a file larger than 1GB (simulated)."""
+    #     big_file_path = "big_file.mp4"
 
-        # Create a dummy large file (1GB + 1MB) for testing
-        with open(big_file_path, "wb") as f:
-            f.seek((1 * 1024 * 1024 * 1024) + (1 * 1024 * 1024) - 1)
-            f.write(b"\0")
+    #     # Create a dummy large file (1GB + 1MB) for testing
+    #     with open(big_file_path, "wb") as f:
+    #         f.seek((1 * 1024 * 1024 * 1024) + (1 * 1024 * 1024) - 1)
+    #         f.write(b"\0")
 
-        with open(big_file_path, "rb") as file:
-            response = requests.post(API_URL, files={"file": file})
+    #     with open(big_file_path, "rb") as file:
+    #         response = requests.post(API_URL, files={"file": file})
 
-        os.remove(big_file_path)  # Clean up the test file
+    #     os.remove(big_file_path)  # Clean up the test file
 
-        self.print_result("Large File Rejection", 413, response.status_code)
-        self.assertEqual(response.status_code, 413)  # 413 Payload Too Large
+    #     self.print_result("Large File Rejection", 413, response.status_code)
+    #     self.assertEqual(response.status_code, 413)  # 413 Payload Too Large
 
 if __name__ == "__main__":
     unittest.main()

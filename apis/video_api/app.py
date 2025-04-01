@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, send_file
 from ultralytics import YOLO
 import os
 import uuid
+import threading
+import time
 
 app = Flask(__name__)
 
@@ -25,6 +27,17 @@ ALLOWED_EXTENSIONS = {"mp4"}  # Add other formats if needed
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# Delete predicted videos
+def delete_predict_video(predict_path):
+    time.sleep(5)  # Wait for 5 seconds
+    # Delete only the "new_filename" directory inside PREDICT_SAVE_FOLDER
+    try:
+        for file in os.listdir(predict_path):
+            os.remove(os.path.join(predict_path, file))  # Delete files inside the folder
+        os.rmdir(predict_path)  # Remove the empty folder
+    except Exception as e:
+        print(f"Error deleting folder {predict_path}: {e}")
 
 # Load a small YOLO model optimized for CPU
 model = YOLO('yolov8n.pt')
@@ -79,19 +92,12 @@ def upload_video():
         print(f"Error deleting folder upload {new_filename}: {e}")
     
     if processed_video:
-        # Load processed video
-        response = send_file(processed_video, as_attachment=True)
-
-        # # Delete only the "new_filename" directory inside PREDICT_SAVE_FOLDER
-        # try:
-        #     for file in os.listdir(predict_path):
-        #         os.remove(os.path.join(predict_path, file))  # Delete files inside the folder
-        #     os.rmdir(predict_path)  # Remove the empty folder
-        # except Exception as e:
-        #     print(f"Error deleting folder {predict_path}: {e}")
+        # Create and start the thread to delete predict video
+        thread = threading.Thread(target=delete_predict_video, args=(predict_path,))
+        thread.start()
 
         # Send the processed video to the user
-        return response
+        return send_file(processed_video, as_attachment=True)
     
     return jsonify({"error": "Processing failed"}), 500
 
