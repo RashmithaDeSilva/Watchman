@@ -107,9 +107,6 @@ def upload_video():
         processed_path = os.path.join(app.config["PROCESSED_FOLDER"], hex_name)
         convert_to_mp4(os.path.join(predict_path, hex_name + ".avi"), processed_path)
 
-        # Delete predict video
-        delete_video(predict_path)
-
         if os.path.exists(processed_path):
             for file in os.listdir(processed_path):
                 if file.endswith(".avi"):  # Ensure get the processed video
@@ -117,9 +114,13 @@ def upload_video():
                     break
         
         if processed_video:
+            # Create and start the thread to delete predict video
+            thread_1 = threading.Thread(target=delete_video, args=(predict_path,))
+            thread_1.start()
+
             # Create and start the thread to delete processed video
-            thread = threading.Thread(target=delete_video, args=(processed_path,))
-            thread.start()
+            thread_2 = threading.Thread(target=delete_video, args=(processed_path,))
+            thread_2.start()
 
             # Send the processed video to the user
             return send_file(processed_video, as_attachment=True)
@@ -127,4 +128,5 @@ def upload_video():
     return jsonify({"error": "Processing failed"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5001)  
+    # app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5001) 
