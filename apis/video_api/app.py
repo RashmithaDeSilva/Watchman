@@ -92,7 +92,7 @@ def upload_video():
 
     if os.path.exists(predict_path):
         for file in os.listdir(predict_path):
-            if file.endswith(".avi"):  # Ensure get the processed video
+            if file.endswith(".avi"):  # Ensure get the predict video
                 processed_video = os.path.join(predict_path, file)
                 break
     
@@ -110,12 +110,19 @@ def upload_video():
         # Delete predict video
         delete_video(predict_path)
 
-        # Create and start the thread to delete processed video
-        thread = threading.Thread(target=delete_video, args=(processed_path,))
-        thread.start()
+        if os.path.exists(processed_path):
+            for file in os.listdir(processed_path):
+                if file.endswith(".avi"):  # Ensure get the processed video
+                    processed_video = os.path.join(processed_path, file)
+                    break
+        
+        if processed_video:
+            # Create and start the thread to delete processed video
+            thread = threading.Thread(target=delete_video, args=(processed_path,))
+            thread.start()
 
-        # Send the processed video to the user
-        return send_file(processed_video, as_attachment=True)
+            # Send the processed video to the user
+            return send_file(processed_video, as_attachment=True)
     
     return jsonify({"error": "Processing failed"}), 500
 
