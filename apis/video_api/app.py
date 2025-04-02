@@ -4,8 +4,12 @@ import os
 import uuid
 import threading
 import time
+from flask_cors import CORS
+import subprocess
+
 
 app = Flask(__name__)
+CORS(app)
 
 # Configure upload settings
 UPLOAD_FOLDER = "uploads"
@@ -28,7 +32,7 @@ ALLOWED_EXTENSIONS = {"mp4"}  # Add other formats if needed
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# Delete predicted videos
+# Delete predicted video and processed video
 def delete_predict_video(predict_path):
     time.sleep(5)  # Wait for 5 seconds
     # Delete only the "new_filename" directory inside PREDICT_SAVE_FOLDER
@@ -38,6 +42,13 @@ def delete_predict_video(predict_path):
         os.rmdir(predict_path)  # Remove the empty folder
     except Exception as e:
         print(f"Error deleting folder {predict_path}: {e}")
+
+# Convert .avi to .mp4
+def convert_to_mp4(avi_path, mp4_path):
+    cmd = [
+        "ffmpeg", "-i", avi_path, "-c:v", "libx264", "-preset", "fast", "-crf", "23", "-c:a", "aac", "-b:a", "128k", mp4_path
+    ]
+    subprocess.run(cmd, check=True)
 
 # Load a small YOLO model optimized for CPU
 model = YOLO('yolov8n.pt')
@@ -92,6 +103,9 @@ def upload_video():
         print(f"Error deleting folder upload {new_filename}: {e}")
     
     if processed_video:
+        # Convert video format
+        convert_to_mp4(predict_path, app.config["PROCESSED_FOLDER"])
+
         # Create and start the thread to delete predict video
         thread = threading.Thread(target=delete_predict_video, args=(predict_path,))
         thread.start()

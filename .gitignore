@@ -12,6 +12,7 @@ apis/video_api/env
 apis/video_api/uploads
 apis/video_api/processed_videos
 apis/video_api/predict
+apis/video_api/processed
 
 
 # Model
