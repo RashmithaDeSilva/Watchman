@@ -33,7 +33,7 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Delete predicted video and processed video
-def delete_predict_video(predict_path):
+def delete_video(predict_path):
     time.sleep(5)  # Wait for 5 seconds
     # Delete only the "new_filename" directory inside PREDICT_SAVE_FOLDER
     try:
@@ -46,7 +46,7 @@ def delete_predict_video(predict_path):
 # Convert .avi to .mp4
 def convert_to_mp4(avi_path, mp4_path):
     cmd = [
-        "ffmpeg", "-i", avi_path, "-c:v", "libx264", "-preset", "fast", "-crf", "23", "-c:a", "aac", "-b:a", "128k", mp4_path
+        "ffmpeg", "-i", avi_path, "-c:v", "libx264", "-preset", "fast", "-crf", "23", "-c:a", "aac", "-b:a", "128k", mp4_path + ".mp4"
     ]
     subprocess.run(cmd, check=True)
 
@@ -104,10 +104,14 @@ def upload_video():
     
     if processed_video:
         # Convert video format
-        convert_to_mp4(predict_path, app.config["PROCESSED_FOLDER"])
+        processed_path = os.path.join(app.config["PROCESSED_FOLDER"], hex_name)
+        convert_to_mp4(os.path.join(predict_path, hex_name + ".avi"), processed_path)
 
-        # Create and start the thread to delete predict video
-        thread = threading.Thread(target=delete_predict_video, args=(predict_path,))
+        # Delete predict video
+        delete_video(predict_path)
+
+        # Create and start the thread to delete processed video
+        thread = threading.Thread(target=delete_video, args=(processed_path,))
         thread.start()
 
         # Send the processed video to the user
