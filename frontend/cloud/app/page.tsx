@@ -8,16 +8,19 @@ import Navbar from "./components/Navbar";
 
 export default function Home() {
   const [files, setFiles] = useState<File[]>([]);
-  const [uploading, setUploading] = useState(false);
-  const [processing, setProcessing] = useState(false);
+  const [uploading, setUploading] = useState(false); // Tracks upload status
+  const [processing, setProcessing] = useState(false); // Tracks processing status
   const [jobId, setJobId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Handle file drop, but prevent new uploads if processing is active
   const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (processing) return; // Prevent upload if another job is in progress
     setFiles(acceptedFiles);
     uploadFile(acceptedFiles[0]);
-  }, []);
+  }, [processing]);
 
+  // Upload the selected file
   const uploadFile = async (file: File) => {
     setUploading(true);
     setProcessing(false);
@@ -39,17 +42,19 @@ export default function Home() {
 
       const data = await response.json();
       setJobId(data.job_id);
-      setProcessing(true);
+      setProcessing(true); // Start processing state
 
-      // Start polling for the processed video
+      // Start polling for processing status
       checkProcessingStatus(data.job_id);
     } catch (error) {
       setError(error instanceof Error ? error.message : "An unknown error occurred.");
+      setProcessing(false); // Allow new uploads if an error occurs
     } finally {
       setUploading(false);
     }
   };
 
+  // Poll server for job status every 5 seconds
   const checkProcessingStatus = async (jobId: string) => {
     const interval = setInterval(async () => {
       try {
@@ -75,7 +80,7 @@ export default function Home() {
           a.click();
           document.body.removeChild(a);
 
-          setProcessing(false);
+          setProcessing(false); // Allow new uploads after processing
         }
       } catch (error) {
         clearInterval(interval);
@@ -85,9 +90,11 @@ export default function Home() {
     }, 5000);
   };
 
+  // Configure Dropzone, disabling input when processing is active
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ 
     onDrop, 
-    accept: { "video/*": [] } 
+    accept: { "video/*": [] }, 
+    disabled: processing // Disable dropzone when processing
   });
 
   return (
@@ -104,7 +111,7 @@ export default function Home() {
 
       {/* Upload Section */}
       <section className="py-20 bg-gray-800 flex flex-col items-center">
-        <div {...getRootProps()} className="w-96">
+        <div {...getRootProps()} className={`w-96 ${processing ? "opacity-50 cursor-not-allowed" : ""}`}>
           <motion.div
             className="border-4 border-dashed border-gray-600 p-10 rounded-lg cursor-pointer text-center"
             initial={{ scale: 0.9 }}
@@ -115,7 +122,9 @@ export default function Home() {
             {isDragActive ? (
               <p className="text-gray-300">Drop the video here...</p>
             ) : (
-              <p className="text-gray-300">Drag & drop a video file here, or click to select one</p>
+              <p className="text-gray-300">
+                {processing ? "Processing in progress..." : "Drag & drop a video file here, or click to select one"}
+              </p>
             )}
           </motion.div>
         </div>
