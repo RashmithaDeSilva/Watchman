@@ -10,7 +10,6 @@ apis/live_api/env
 
 apis/video_api/env
 apis/video_api/uploads
-apis/video_api/processed_videos
 apis/video_api/predict
 apis/video_api/processed
 
@@ -26,6 +25,7 @@ yolov8n.pt
 
 # Frontend ---------------------------------------------------------
 
+# Cloud ----------------------------------------
 # dependencies
 frontend/cloud/node_modules/
 frontend/cloud/.pnp
@@ -65,3 +65,44 @@ frontend/cloud/.vercel
 # typescript
 frontend/cloud/*.tsbuildinfo
 frontend/cloud/next-env.d.ts
+
+# Local ----------------------------------------
+# dependencies
+frontend/local/node_modules/
+frontend/local/.pnp
+frontend/local/.pnp.*
+frontend/local/.yarn/*
+frontend/local/!.yarn/patches
+frontend/local/!.yarn/plugins
+frontend/local/!.yarn/releases
+frontend/local/!.yarn/versions
+
+# testing
+frontend/local/coverage
+
+# next.js
+frontend/local/.next/
+frontend/local/out/
+
+# production
+frontend/local/build
+
+# misc
+frontend/local/.DS_Store
+frontend/local/*.pem
+
+# debug
+frontend/local/npm-debug.log*
+frontend/local/yarn-debug.log*
+frontend/local/yarn-error.log*
+frontend/local/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+frontend/local/.env*
+
+# vercel
+frontend/local/.vercel
+
+# typescript
+frontend/local/*.tsbuildinfo
+frontend/local/next-env.d.ts
