@@ -1,12 +1,17 @@
 # Minimum and optimized Dockerfile for Flask App
-FROM python:3.11-alpine
+FROM python:3.11-slim
 
 # Set the working directory
 WORKDIR /app
 
-# Install dependencies
+# Update pip and install virtualenv
+RUN pip install --upgrade pip \
+    && pip install virtualenv \
+    && python -m virtualenv env
+
+# Activate virtual environment and install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN /app/env/bin/pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code
 COPY app.py .
@@ -15,8 +20,9 @@ COPY app.py .
 EXPOSE 5001
 
 # Set environment variables to avoid Python writing bytecode and buffering
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/app/env/bin:$PATH"
 
 # Command to run the Flask application
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0", "--port=5001"]
+CMD ["python", "app.py"]
