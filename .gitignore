@@ -27,41 +27,41 @@ yolov8n.pt
 # Frontend ---------------------------------------------------------
 
 # dependencies
-frontend/node_modules/
-frontend/.pnp
-frontend/.pnp.*
-frontend/.yarn/*
-frontend/!.yarn/patches
-frontend/!.yarn/plugins
-frontend/!.yarn/releases
-frontend/!.yarn/versions
+frontend/cloud/node_modules/
+frontend/cloud/.pnp
+frontend/cloud/.pnp.*
+frontend/cloud/.yarn/*
+frontend/cloud/!.yarn/patches
+frontend/cloud/!.yarn/plugins
+frontend/cloud/!.yarn/releases
+frontend/cloud/!.yarn/versions
 
 # testing
-frontend/coverage
+frontend/cloud/coverage
 
 # next.js
-frontend/.next/
-frontend/out/
+frontend/cloud/.next/
+frontend/cloud/out/
 
 # production
-frontend/build
+frontend/cloud/build
 
 # misc
-frontend/.DS_Store
-frontend/*.pem
+frontend/cloud/.DS_Store
+frontend/cloud/*.pem
 
 # debug
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/.pnpm-debug.log*
+frontend/cloud/npm-debug.log*
+frontend/cloud/yarn-debug.log*
+frontend/cloud/yarn-error.log*
+frontend/cloud/.pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-frontend/.env*
+frontend/cloud/.env*
 
 # vercel
-frontend/.vercel
+frontend/cloud/.vercel
 
 # typescript
-frontend/*.tsbuildinfo
-frontend/next-env.d.ts
+frontend/cloud/*.tsbuildinfo
+frontend/cloud/next-env.d.ts
