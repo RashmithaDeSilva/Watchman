@@ -168,3 +168,16 @@ docker-compose up --build
 * Multi-camera stream handling
 
 * Admin dashboard with statistics
+---
+
+### 📄 License
+This project is licensed under the MIT License.
+
+---
+
+### 👨‍💻 Author
+Watchman was created as a final year project by Lahiru De Silva.
+
+Made with ❤️ using Flask, Next.js, and YOLOv8.
+
+---
