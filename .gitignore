@@ -24,86 +24,86 @@ yolo12n.pt
 yolov8n.pt
 
 
-# Frontend ---------------------------------------------------------
+# Frontends ---------------------------------------------------------
 
 # Cloud ----------------------------------------
 # dependencies
-frontend/cloud/node_modules/
-frontend/cloud/.pnp
-frontend/cloud/.pnp.*
-frontend/cloud/.yarn/*
-frontend/cloud/!.yarn/patches
-frontend/cloud/!.yarn/plugins
-frontend/cloud/!.yarn/releases
-frontend/cloud/!.yarn/versions
+frontends/cloud/node_modules/
+frontends/cloud/.pnp
+frontends/cloud/.pnp.*
+frontends/cloud/.yarn/*
+frontends/cloud/!.yarn/patches
+frontends/cloud/!.yarn/plugins
+frontends/cloud/!.yarn/releases
+frontends/cloud/!.yarn/versions
 
 # testing
-frontend/cloud/coverage
+frontends/cloud/coverage
 
 # next.js
-frontend/cloud/.next/
-frontend/cloud/out/
+frontends/cloud/.next/
+frontends/cloud/out/
 
 # production
-frontend/cloud/build
+frontends/cloud/build
 
 # misc
-frontend/cloud/.DS_Store
-frontend/cloud/*.pem
+frontends/cloud/.DS_Store
+frontends/cloud/*.pem
 
 # debug
-frontend/cloud/npm-debug.log*
-frontend/cloud/yarn-debug.log*
-frontend/cloud/yarn-error.log*
-frontend/cloud/.pnpm-debug.log*
+frontends/cloud/npm-debug.log*
+frontends/cloud/yarn-debug.log*
+frontends/cloud/yarn-error.log*
+frontends/cloud/.pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-frontend/cloud/.env*
+frontends/cloud/.env*
 
 # vercel
-frontend/cloud/.vercel
+frontends/cloud/.vercel
 
 # typescript
-frontend/cloud/*.tsbuildinfo
-frontend/cloud/next-env.d.ts
+frontends/cloud/*.tsbuildinfo
+frontends/cloud/next-env.d.ts
 
 # Local ----------------------------------------
 # dependencies
-frontend/local/node_modules/
-frontend/local/.pnp
-frontend/local/.pnp.*
-frontend/local/.yarn/*
-frontend/local/!.yarn/patches
-frontend/local/!.yarn/plugins
-frontend/local/!.yarn/releases
-frontend/local/!.yarn/versions
+frontends/local/node_modules/
+frontends/local/.pnp
+frontends/local/.pnp.*
+frontends/local/.yarn/*
+frontends/local/!.yarn/patches
+frontends/local/!.yarn/plugins
+frontends/local/!.yarn/releases
+frontends/local/!.yarn/versions
 
 # testing
-frontend/local/coverage
+frontends/local/coverage
 
 # next.js
-frontend/local/.next/
-frontend/local/out/
+frontends/local/.next/
+frontends/local/out/
 
 # production
-frontend/local/build
+frontends/local/build
 
 # misc
-frontend/local/.DS_Store
-frontend/local/*.pem
+frontends/local/.DS_Store
+frontends/local/*.pem
 
 # debug
-frontend/local/npm-debug.log*
-frontend/local/yarn-debug.log*
-frontend/local/yarn-error.log*
-frontend/local/.pnpm-debug.log*
+frontends/local/npm-debug.log*
+frontends/local/yarn-debug.log*
+frontends/local/yarn-error.log*
+frontends/local/.pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-frontend/local/.env*
+frontends/local/.env*
 
 # vercel
-frontend/local/.vercel
+frontends/local/.vercel
 
 # typescript
-frontend/local/*.tsbuildinfo
-frontend/local/next-env.d.ts
+frontends/local/*.tsbuildinfo
+frontends/local/next-env.d.ts
