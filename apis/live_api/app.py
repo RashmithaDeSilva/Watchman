@@ -35,6 +35,9 @@ max_no_person_frames = 10  # Number of frames to wait before stopping recording
 avi_path = None
 mp4_path = None
 
+# Flag to control saving
+is_saving_enabled = {"enabled": False}
+
 # Convert .avi to .mp4 in background
 def convert_to_mp4(avi_file, mp4_file):
     try:
@@ -86,7 +89,7 @@ def generate_frames():
                 person_detected = True
 
         # Start recording
-        if person_detected:
+        if is_saving_enabled["enabled"] and person_detected:
             no_person_frames = 0
             if not recording:
                 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -134,6 +137,20 @@ def list_footages():
 @app.route("/footages/<path:filename>")
 def download_footage(filename):
     return send_from_directory("footages", filename)
+
+@app.route("/start-saving", methods=["POST"])
+def start_saving():
+    is_saving_enabled["enabled"] = True
+    return jsonify({"message": "Saving started"}), 200
+
+@app.route("/stop-saving", methods=["POST"])
+def stop_saving():
+    is_saving_enabled["enabled"] = False
+    return jsonify({"message": "Saving stopped"}), 200
+
+@app.route("/is-saving", methods=["GET"])
+def check_saving_status():
+    return jsonify({"saving": is_saving_enabled["enabled"]}), 200
 
 # Run the Flask server
 if __name__ == '__main__':
