@@ -34,6 +34,9 @@ ALLOWED_EXTENSIONS = {"mp4"}
 processing_jobs = {}
 lock = threading.Lock()  # Lock for thread safety
 
+# Load YOLOv8 model
+model = YOLO('yolov8n.pt')
+
 def allowed_file(filename):
     """Check if the uploaded file has an allowed extension"""
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -84,6 +87,7 @@ def process_video(filepath, job_id):
             save=True,           # Save output video
             project=app.config["PREDICT_SAVE_FOLDER"],  # Output directory
             name=job_id,         # Output file name
+            verbose=False
         )
 
         # Locate the processed video output
@@ -119,9 +123,6 @@ def process_video(filepath, job_id):
 
     except Exception as e:
         print(f"Error processing video {job_id}: {e}")
-
-# Load YOLOv8 model
-model = YOLO('yolov8n.pt')
 
 # API endpoint to check the status of a job
 @app.route("/api/v1/status/<job_id>", methods=["GET"])

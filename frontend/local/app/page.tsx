@@ -13,7 +13,7 @@ export default function Home() {
 
         <div className="border-4 border-white rounded overflow-hidden">
           <img
-            src="http://localhost:5000/video"
+            src="http://192.168.1.6:5000/video"
             alt="Live Object Detection"
             className="w-[640px] h-[480px] object-cover"
           />
