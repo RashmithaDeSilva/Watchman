@@ -1,25 +1,22 @@
 import Navbar from "../components/Navbar";
-import Link from "next/link";
 import {
   FaGithub,
   FaUserShield,
   FaRobot,
   FaLaptopCode,
-  FaCogs,
   FaNetworkWired,
 } from "react-icons/fa";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+    <div className="bg-gray-900 text-white min-h-screen">
       <Navbar />
 
       {/* Add top padding to account for fixed navbar */}
       <div className="pt-28 px-6 py-16 max-w-6xl mx-auto space-y-12">
-        <h1 className="text-5xl font-bold text-center bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text animate-fade-in">
-          🛡️ About Watchman
+        <h1 className="text-5xl font-bold text-center text-white animate-fade-in">
+          About Watchman
         </h1>
-
         <div className="grid md:grid-cols-2 gap-10">
           {/* About Section */}
           <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/10 transition hover:scale-[1.02]">
