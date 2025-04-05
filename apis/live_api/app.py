@@ -124,31 +124,31 @@ def generate_frames():
 
 
 # Route to video stream
-@app.route('/video')
+@app.route('/api/v1/video')
 def video():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route("/footages")
+@app.route("/api/v1/footages")
 def list_footages():
     files = os.listdir("footages")
     mp4_files = sorted([f for f in files if f.endswith(".mp4")], reverse=True)
     return jsonify(mp4_files)
 
-@app.route("/footages/<path:filename>")
+@app.route("/api/v1/footages/<path:filename>")
 def download_footage(filename):
     return send_from_directory("footages", filename)
 
-@app.route("/start-saving", methods=["POST"])
+@app.route("/api/v1/start-saving", methods=["POST"])
 def start_saving():
     is_saving_enabled["enabled"] = True
     return jsonify({"message": "Saving started"}), 200
 
-@app.route("/stop-saving", methods=["POST"])
+@app.route("/api/v1/stop-saving", methods=["POST"])
 def stop_saving():
     is_saving_enabled["enabled"] = False
     return jsonify({"message": "Saving stopped"}), 200
 
-@app.route("/is-saving", methods=["GET"])
+@app.route("/api/v1/is-saving", methods=["GET"])
 def check_saving_status():
     return jsonify({"saving": is_saving_enabled["enabled"]}), 200
 
