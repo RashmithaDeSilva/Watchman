@@ -3,14 +3,14 @@
 import Navbar from "./components/Navbar";
 import { useEffect, useState } from "react";
 
-const BACKEND_URL = "http://192.168.1.6:5000";
+// const BACKEND_URL = "http://192.168.1.6:5000";
 
 export default function Home() {
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     // On load, check current saving state from backend
-    fetch(`${BACKEND_URL}/is-saving`)
+    fetch(`/api/is-saving`)
       .then((res) => res.json())
       .then((data) => {
         setIsSaving(data.saving);
@@ -20,7 +20,7 @@ export default function Home() {
   const toggleSaving = async () => {
     const endpoint = isSaving ? "stop-saving" : "start-saving";
 
-    const res = await fetch(`${BACKEND_URL}/${endpoint}`, {
+    const res = await fetch(`/api/${endpoint}`, {
       method: "POST",
     });
 
@@ -38,7 +38,7 @@ export default function Home() {
 
         <div className="border-4 border-white rounded overflow-hidden">
           <img
-            src={`${BACKEND_URL}/video`}
+            src={`/api/video`}
             alt="Live Object Detection"
             className="w-[640px] h-[480px] object-cover"
           />

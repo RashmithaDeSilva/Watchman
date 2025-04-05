@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar"; // Import Navbar
 
-const BACKEND_URL = "http://192.168.1.6:5000"; // Make sure this matches your backend URL
+// const BACKEND_URL = "http://192.168.1.6:5000"; // Make sure this matches your backend URL
 
 const Futagers = () => {
   const [videos, setVideos] = useState<string[]>([]);
@@ -11,7 +11,7 @@ const Futagers = () => {
 
   // Fetch the footages when the component is mounted
   useEffect(() => {
-    fetch(`${BACKEND_URL}/footages`)
+    fetch(`/api/footages`)
       .then((res) => res.json())
       .then((data) => {
         setVideos(data);
@@ -52,7 +52,7 @@ const Futagers = () => {
             <video
               controls
               className="w-full rounded border-2 border-white"
-              src={`${BACKEND_URL}/footages/${selectedVideo}`}
+              src={`/api/footages/${selectedVideo}`}
             />
           ) : (
             <p>No video selected</p>

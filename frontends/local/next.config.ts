@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*", // Any request to /api/... will be redirected
+        destination: "http://localhost:5001/api/v1/:path*", // Your Flask backend
+      },
+    ];
+  },
 };
 
 export default nextConfig;
