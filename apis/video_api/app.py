@@ -87,7 +87,8 @@ def process_video(filepath, job_id):
             save=True,           # Save output video
             project=app.config["PREDICT_SAVE_FOLDER"],  # Output directory
             name=job_id,         # Output file name
-            verbose=False
+            verbose=False,
+            stream=False
         )
 
         # Locate the processed video output

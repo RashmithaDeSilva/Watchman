@@ -1,3 +1,4 @@
 flask 
 ultralytics
 flask_cors
+# pytest
