@@ -53,7 +53,7 @@ export default function Home() {
               : "bg-green-600 hover:bg-green-700"
           }`}
         >
-          {isSaving ? "Stop Saving" : "Start Saving"}
+          {isSaving ? "Disable Saving" : "Enable Saving"}
         </button>
       </div>
     </div>

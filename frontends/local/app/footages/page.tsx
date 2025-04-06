@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar"; // Import Navbar
 
 // const BACKEND_URL = "http://192.168.1.6:5000"; // Make sure this matches your backend URL
 
-const Futagers = () => {
+const Footages = () => {
   const [videos, setVideos] = useState<string[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
@@ -63,4 +63,4 @@ const Futagers = () => {
   );
 };
 
-export default Futagers;
+export default Footages;
