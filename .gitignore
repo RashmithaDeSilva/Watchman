@@ -16,12 +16,21 @@ apis/video_api/processed
 
 
 # Model
-model/env
-model/output
-model/footages
+model/env/
+model/output/
+model/footages/
 yolo11n.pt
 yolo12n.pt
 yolov8n.pt
+
+
+# Dataset
+dataset/env/
+dataset/0/
+dataset/1/
+dataset/imgs
+dataset/watchman.v1i.yolov8/
+dataset/set_1/
 
 
 # Frontends ---------------------------------------------------------
