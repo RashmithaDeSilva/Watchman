@@ -35,7 +35,7 @@ processing_jobs = {}
 lock = threading.Lock()  # Lock for thread safety
 
 # Load YOLOv8 model
-model = YOLO('yolov8n.pt')
+model = YOLO('watchman_v2.pt')
 
 def allowed_file(filename):
     """Check if the uploaded file has an allowed extension"""
