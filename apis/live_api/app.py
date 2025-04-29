@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load YOLOv8n model
-model = YOLO("watchman_v2.pt")
+model = YOLO("watchman_v3.pt")
 model.fuse()
 
 # Create footage directory if it doesn't exist

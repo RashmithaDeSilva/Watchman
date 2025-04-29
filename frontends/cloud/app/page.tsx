@@ -7,17 +7,10 @@ import { UploadCloud } from "lucide-react";
 import Navbar from "./components/Navbar";
 
 export default function Home() {
-  const [files, setFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [jobId, setJobId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (processing) return;
-    setFiles(acceptedFiles);
-    uploadFile(acceptedFiles[0]);
-  }, [processing]);
 
   const uploadFile = async (file: File) => {
     setUploading(true);
@@ -46,6 +39,11 @@ export default function Home() {
       setUploading(false);
     }
   };
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (processing) return;
+    uploadFile(acceptedFiles[0]);
+  }, [processing, uploadFile]);
 
   const checkProcessingStatus = async (jobId: string) => {
     const interval = setInterval(async () => {
